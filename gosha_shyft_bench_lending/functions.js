@@ -13,15 +13,17 @@ module.exports = {
     },
 
     // не тестировал
-    heatUrls: (urls) => {
+    heatUrls: async (urls) => {
         for (let i = 0; i < urls.length; i++) {
             const url = urls[i]
 
-            try{
-                fetch(url, {keepalive: true,redirect: 'manual',method: 'HEAD'})
-                    .then(()=>{})
-                    .catch(()=>{})
-            }catch(exc){}
+            new Promise(async ()=> {
+                try{
+                    await fetch(url, {keepalive: true,redirect: 'manual',method: 'HEAD'})
+                }catch(e){}
+            })
+
+            await new Promise(resolve => setTimeout(resolve, 30))
         }
     },
 
@@ -56,4 +58,5 @@ module.exports = {
             })
         }
     },
+
 }
